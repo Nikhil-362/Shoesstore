@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+   
+</head>
+
+<body class="bg-gray-800">
+
+    <!-- Error Message -->
+    <% if (errorMessage.length> 0) { %>
+
+        <div id="flash-message"
+            class="py-3 px-5 mb-4 text-center justify-center bg-red-100 text-red-900 text-sm rounded-md border border-red-200 flex items-center"
+            role="alert">
+            <div class="w-4 mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01" />
+                </svg>
+            </div>
+            <span> <strong>
+                    <%= errorMessage %>
+                </strong></span>
+
+        </div>
+        <% } %>
+
+            <!-- Success Message -->
+            <% if (successMessage.length> 0) { %>
+                <div id="flash-message"
+                    class="py-3 px-5 mb-4  text-center justify-center bg-green-100 text-green-900 text-sm rounded-md border border-green-200 flex items-center"
+                    role="alert">
+                    <div class="w-4 mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                        </svg>
+                    </div>
+                    <span><strong>
+                            <%= successMessage %>
+                        </strong> </span>
+                </div>
+                <% } %>
+
+
+                <script>
+                    setTimeout(function () {
+                        const flashMessage = document.getElementById('flash-message');
+                        if (flashMessage) {
+                            flashMessage.style.transition = 'opacity 0.5s ease-out';
+                            flashMessage.style.opacity = '0';
+                            setTimeout(() => flashMessage.remove(), 500); // Remove from DOM after fade out
+                        }
+                    }, 6000); // 6 seconds
+                </script>
+                
+                    <!-- Container -->
+                    <div class="min-h-screen flex flex-col justify-center items-center">
+                        <div class="w-full max-w-lg bg-gray-700 rounded-lg shadow-md p-8">
+                            <h2 class="text-3xl font-bold text-center mb-8 text-white">Admin <span
+                                    class="text-indigo-400 text-xl">Join Us </span></h2>
+
+                            <div class="flex space-x-8 mb-6">
+                            </div>
+
+                            <!-- Login Form -->
+                            <form id="loginForm" action="/admin/login" method="POST" class="space-y-6">
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-slate-200">Email</label>
+                                    <input type="email" name="email" id="email" required
+                                        class="mt-1 block w-full px-3 py-2 bg-gray-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                                </div>
+
+                                <div>
+                                    <label for="password"
+                                        class="block text-sm font-medium text-slate-200">Password</label>
+                                    <input type="password" name="password" id="password" required
+                                        class="mt-1 block w-full px-3 py-2 bg-gray-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                                </div>
+
+                                <div>
+                                    <button type="submit"
+                                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Login
+                                    </button>
+                                </div>
+                            </form>
+
+                            <p class="text-center text-slate-200 mt-4" id="displayReg">
+                                Don't have an account?
+                                <a href="#" id="switchToRegister"
+                                    class="text-indigo-400 hover:text-indigo-300">Register</a>
+                            </p>
+
+                            <!-- Register Form -->
+                            <form id="registerForm" action="/admin/register" method="POST" class="space-y-6 hidden">
+                                <div>
+                                    <label for="username" class="block text-sm font-medium text-slate-200">Name</label>
+                                    <input type="text" name="username" id="username" required
+                                        class="mt-1 block w-full px-3 py-2 bg-gray-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                                </div>
+
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-slate-200">Email</label>
+                                    <input type="email" name="email" id="registerEmail" required
+                                        class="mt-1 block w-full px-3 py-2 bg-gray-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                                </div>
+
+                                <div>
+                                    <label for="password"
+                                        class="block text-sm font-medium text-slate-200">Password</label>
+                                    <input type="password" name="password" id="registerPassword" required
+                                        class="mt-1 block w-full px-3 py-2 bg-gray-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                                </div>
+
+                                <div>
+                                    <button type="submit"
+                                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Register
+                                    </button>
+                                </div>
+                            </form>
+
+                            <p class=" hidden text-center text-slate-200 mt-4" id="displayLog">
+                                Already have an account?
+                                <a href="#" id="switchToLogin" class="text-indigo-400 hover:text-indigo-300">Login</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <script>
+                        document.getElementById('switchToRegister').addEventListener('click', function () {
+                            document.getElementById('loginForm').classList.add('hidden');
+                            document.getElementById('displayLog').classList.remove('hidden');
+                            document.getElementById('registerForm').classList.remove('hidden');
+                            document.getElementById('displayReg').classList.add('hidden');
+                        });
+
+                        document.getElementById('switchToLogin').addEventListener('click', function () {
+                            document.getElementById('registerForm').classList.add('hidden');
+                            document.getElementById('displayLog').classList.add('hidden');
+                            document.getElementById('loginForm').classList.remove('hidden');
+                            document.getElementById('displayReg').classList.remove('hidden');
+                        });
+                    </script>
+</body>
+
+</html>

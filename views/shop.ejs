@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Men's Shoes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+</head>
+
+<body class="bg-gray-50">
+   
+    <!-- Error Message -->
+    <% if (errorMessage.length> 0) { %>
+
+        <div id="flash-message"
+            class="py-3 px-5 mb-4 text-center justify-center bg-red-100 text-red-900 text-sm rounded-md border border-red-200 flex items-center"
+            role="alert">
+            <div class="w-4 mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01" />
+                </svg>
+            </div>
+            <span> <strong>
+                    <%= errorMessage %>
+                </strong></span>
+
+        </div>
+        <% } %>
+
+            <!-- Success Message -->
+            <% if (successMessage.length> 0) { %>
+                <div id="flash-message"
+                    class="py-3 px-5 mb-4  text-center justify-center bg-green-100 text-green-900 text-sm rounded-md border border-green-200 flex items-center"
+                    role="alert">
+                    <div class="w-4 mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                        </svg>
+                    </div>
+                    <span><strong>
+                            <%= successMessage %>
+                        </strong> </span>
+                </div>
+                <% } %>
+
+
+                <script>
+                    setTimeout(function () {
+                        const flashMessage = document.getElementById('flash-message');
+                        if (flashMessage) {
+                            flashMessage.style.transition = 'opacity 0.5s ease-out';
+                            flashMessage.style.opacity = '0';
+                            setTimeout(() => flashMessage.remove(), 500); // Remove from DOM after fade out
+                        }
+                    }, 6000); // 6 seconds
+                </script>
+
+                
+                    <!-- Navigation Bar -->
+                    <nav class="bg-white shadow">
+                        <div class="container mx-auto px-4">
+                            <div class="flex justify-between items-center py-4">
+                                <div class="text-xl font-bold text-gray-800">
+                                    <a href="#">Men's Shoes</a>
+                                </div>
+                                <div class="hidden md:flex">
+                                    <ul class="flex space-x-6">
+                                        <li><a href="/" class="text-gray-600 hover:text-gray-900">Home</a></li>
+                                        <li><a href="#" class="text-gray-600 hover:text-gray-900">Shop</a></li>
+                                        <li><a href="/cart" class="text-gray-600 hover:text-gray-800">Cart</a></li>
+
+                                        <li><a href="/admin"
+                                                class="text-gray-600 hover:text-gray-800">Admin</a></li>
+                                        <li><a href="/users/logout" class="text-red-600 hover:text-gray-900">Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="md:hidden">
+                                    <button id="menu-btn" class="text-gray-800 focus:outline-none">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <!-- Mobile Menu -->
+                    <div id="mobile-menu" class="hidden md:hidden bg-white shadow">
+                        <ul class="flex flex-col space-y-2 p-4">
+                            <li><a href="#" class="text-gray-600 hover:text-gray-900">Home</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-gray-900">Shop</a></li>
+                            <li><a href="/cart" class="text-gray-600 hover:text-gray-800">Cart</a></li>
+
+                            <li><a href="/products/admin" class="text-gray-600 hover:text-gray-900">Admin</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-gray-900">Contact</a></li>
+                            <li><a href="/users/logout" class="text-red-600 hover:text-gray-900">Logout</a></li>
+
+                        </ul>
+                    </div>
+
+                    <!-- Header Section with Banner -->
+                    <header class="relative">
+                        <img src="https://picsum.photos/1280/720?grayscale" alt="Men's Shoes Banner"
+                            class="w-full h-96 object-cover">
+                        <div class="absolute inset-0 flex justify-center items-center">
+                            <h1 class="text-4xl font-semibold text-white">Men's Shoes</h1>
+                        </div>
+                        <div class="absolute bottom-4 w-full flex justify-center">
+                            <button class="bg-white text-gray-800 px-6 py-2 rounded-full shadow-lg">Shop Now</button>
+                        </div>
+                    </header>
+
+                    <!-- Filters and Product Grid -->
+                    <main class="container mx-auto px-10 py-10">
+                        <div class="flex flex-col md:flex-row space-x-0 md:space-x-8">
+                            <!-- Filters Section -->
+                            <aside class="w-full md:w-1/6 space-y-6 mb-6 md:mb-0">
+                                <!-- Categories -->
+                                <div>
+                                    <h3 class="font-semibold mb-2">Categories</h3>
+                                    <ul class="space-y-1">
+                                        <li><a href="#"
+                                                class="text-gray-600 hover:text-white hover:bg-slate-500 hover:p-5">Lifestyle</a>
+                                        </li>
+                                        <li><a href="#"
+                                                class="text-gray-600  hover:bg-green-500 hover:p-5 hover:text-white">Running</a>
+                                        </li>
+                                        <li><a href="#"
+                                                class="text-gray-600  hover:bg-red-500 hover:p-5 hover:text-white">Basketball</a>
+                                        </li>
+                                        <li><a href="#"
+                                                class="text-gray-600  hover:bg-blue-500 hover:p-5 hover:text-white">Football</a>
+                                        </li>
+                                        <li><a href="#"
+                                                class="text-gray-600  hover:bg-purple-500 hover:p-5 hover:text-white">Soccer</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Price Filter -->
+                                <div>
+                                    <h3 class="font-semibold mb-2">Price</h3>
+                                    <div class="space-y-2">
+                                        <div><input type="radio" name="price" id="under50" class="mr-2"><label
+                                                for="under50">$50 -
+                                                $100</label></div>
+                                        <div><input type="radio" name="price" id="100to150" class="mr-2"><label
+                                                for="100to150">$100 -
+                                                $150</label></div>
+                                        <div><input type="radio" name="price" id="over300" class="mr-2"><label
+                                                for="over300">Over
+                                                $300</label></div>
+                                    </div>
+                                </div>
+
+                                <!-- Colors Filter -->
+                                <div>
+                                    <h3 class="font-semibold mb-2">Colors</h3>
+                                    <div class="flex space-x-2">
+                                        <div class="w-9 h-6 bg-gray-300 rounded-full"></div>
+                                        <div class="w-9 h-6 bg-red-500 rounded-full"></div>
+                                        <div class="w-9 h-6 bg-blue-500 rounded-full"></div>
+                                        <div class="w-9 h-6 bg-green-500 rounded-full"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Sizes Filter -->
+                                <div>
+                                    <h3 class="font-semibold mb-2">Sizes</h3>
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <div class="border border-gray-300 rounded-full p-2 text-center">6</div>
+                                        <div class="border border-gray-300 rounded-full p-2 text-center">7</div>
+                                        <div class="border border-gray-300 rounded-full p-2 text-center">8</div>
+                                        <div class="border border-gray-300 rounded-full p-2 text-center">9</div>
+                                        <div class="border border-gray-300 rounded-full p-2 text-center">10</div>
+                                        <div class="border border-gray-300 rounded-full p-2 text-center">11</div>
+                                    </div>
+                                </div>
+                            </aside>
+
+                            <!-- Products Grid -->
+                            <section class="w-full md:w-3/4">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h2 class="text-xl font-semibold">Men's Shoes & Sneakers</h2>
+                                    <div>
+                                        <select class="bg-white border border-gray-300 p-2 rounded-md">
+                                            <option>Newest</option>
+                                            <option>Highest Rated</option>
+                                            <option>Low Price to High</option>
+                                            <option>High Price to Low</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <section class="w-3/4 pl-8 z-10">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                                        <% products.forEach(product=> { %>
+                                            <div
+                                                class="relative bg-[<%=product.bgColor%>] shadow-md rounded-lg pb-4 text-center">
+                                                <!-- Product Image -->
+                                                <img src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
+                                                    alt="<%= product.title %>"
+                                                    class="h-48 w-full object-cover mb-4 rounded-t-lg">
+
+
+                                                <!-- Product Name and Price -->
+                                                <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                                                    <%= product.title %>
+                                                </h4>
+                                                <p class="text-gray-500 mb-2">$<%= product.price %>
+                                                </p>
+
+                                                <% let qnty = 0 ;%>
+                                                <!-- Cart Icon -->
+                                                <div class="absolute bottom-5 right-5">
+                                                    <a href="/addtocart/<%= product._id %>">
+                                                        <p
+                                                            class="bg-slate-100 rounded-full p-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl text-center shadow-lg hover:bg-gray-200 transition cursor-pointer">
+                                                            <%= carts.includes(product._id) ? '-' : '+' %>
+                                                        </p>
+                                                    </a>
+                                                </div>
+
+
+
+
+                                            </div>
+                                            <% }) %>
+                                    </div>
+                                </section>
+                            </section>
+                        </div>
+                    </main>
+
+                    <!-- Footer Section -->
+                    <footer class="bg-white py-6 mt-10">
+                        <div class="container mx-auto text-gray-600">
+                            <div class="grid grid-cols-4 gap-6">
+                                <div>
+                                    <h3 class="font-semibold mb-2">Services</h3>
+                                    <ul class="space-y-1">
+                                        <li><a href="#" class="hover:text-gray-900">Customer Service</a></li>
+                                        <li><a href="#" class="hover:text-gray-900">Shipping Rates</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold mb-2">Company</h3>
+                                    <ul class="space-y-1">
+                                        <li><a href="#" class="hover:text-gray-900">About Us</a></li>
+                                        <li><a href="#" class="hover:text-gray-900">Contact Us</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+
+                    <script>
+                        // Toggle mobile menu
+                        const menuBtn = document.getElementById('menu-btn');
+                        const mobileMenu = document.getElementById('mobile-menu');
+
+                        menuBtn.addEventListener('click', () => {
+                            mobileMenu.classList.toggle('hidden');
+                        });
+                    </script>
+</body>
+
+</html>

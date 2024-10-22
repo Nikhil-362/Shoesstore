@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Error Message -->
+    <% if (errorMessage.length> 0) { %>
+
+        <div id="flash-message"
+            class="py-3 px-5 mb-4 text-center justify-center bg-red-100 text-red-900 text-sm rounded-md border border-red-200 flex items-center"
+            role="alert">
+            <div class="w-4 mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01" />
+                </svg>
+            </div>
+            <span> <strong>
+                    <%= errorMessage %>
+                </strong></span>
+
+        </div>
+        <% } %>
+
+            <!-- Success Message -->
+            <% if (successMessage.length> 0) { %>
+                <div id="flash-message"
+                    class="py-3 px-5 mb-4  text-center justify-center bg-green-100 text-green-900 text-sm rounded-md border border-green-200 flex items-center"
+                    role="alert">
+                    <div class="w-4 mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                        </svg>
+                    </div>
+                    <span><strong>
+                            <%= successMessage %>
+                        </strong> </span>
+                </div>
+                <% } %>
+
+
+                <script>
+                    setTimeout(function () {
+                        const flashMessage = document.getElementById('flash-message');
+                        if (flashMessage) {
+                            flashMessage.style.transition = 'opacity 0.5s ease-out';
+                            flashMessage.style.opacity = '0';
+                            setTimeout(() => flashMessage.remove(), 500); // Remove from DOM after fade out
+                        }
+                    }, 3000); // 6 seconds
+                </script>
+
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-semibold text-gray-800 mb-6 text-center">Edit Product</h1>
+
+        <!-- Edit Form with Medium Width -->
+        <form action="/products/update/<%= product._id %>?" method="POST" enctype="multipart/form-data"
+            class="bg-white p-6 rounded-lg shadow-md space-y-4 max-w-md mx-auto">
+
+            <!-- Title Field -->
+            <div>
+                <label for="title" class="block text-gray-700 font-semibold mb-2">Title</label>
+                <input type="text" id="title" name="title"
+                    class="w-full border border-gray-300 p-2 rounded-md focus:outline-none" value="<%= product.title %>"
+                    required>
+            </div>
+
+            <!-- Price Field -->
+            <div>
+                <label for="price" class="block text-gray-700 font-semibold mb-2">Price</label>
+                <input type="number" id="price" name="price"
+                    class="w-full border border-gray-300 p-2 rounded-md focus:outline-none" value="<%= product.price %>"
+                    required>
+            </div>
+
+           
+
+            <!-- Discount Field -->
+            <div>
+                <label for="discount" class="block text-gray-700 font-semibold mb-2">Discount (%)</label>
+                <input type="number" id="discount" name="discount"
+                    class="w-full border border-gray-300 p-2 rounded-md focus:outline-none"
+                    value="<%= product.discount %>">
+            </div>
+
+            <!-- Sizes Field -->
+            <div>
+                <label for="sizes" class="block text-gray-700 font-semibold mb-2">Sizes (Comma separated values)</label>
+                <input type="text" id="sizes" name="sizes"
+                    class="w-full border border-gray-300 p-2 rounded-md focus:outline-none"
+                    value="<%= product.sizes.join(', ') %>">
+            </div>
+            
+             <!-- Background Color Field -->
+             <div>
+                <label for="bgColor" class="block text-gray-700 font-semibold mb-2">Background Color</label>
+                <input type="color" id="bgColor" name="bgColor"
+                    class="w-full h-11 border border-gray-300 p-2 rounded-md focus:outline-none"
+                    value="<%= product.bgColor %>" required>
+            </div>
+
+            <!-- Image Upload Field -->
+            <div>
+                <label for="image" class="block text-gray-700 font-semibold mb-2">Upload Image</label>
+                <input type="file" id="image" name="image" accept="image/*"
+                    class="w-full border border-gray-300 p-2 rounded-md focus:outline-none">
+                <% if (product.image) { %>
+                    <img src="data:image/jpeg;base64,<%= product.image.toString('base64') %>" alt="<%= product.title %>"
+                        class="mt-4 w-24 h-24 object-cover">
+                    <% } %>
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+                <button type="submit"
+                    class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition">
+                    Update Product
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

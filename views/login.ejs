@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-zinc-900">
+
+
+  <!-- Error Message -->
+  <% if (errorMessage.length> 0) { %>
+
+    <div id="flash-message"
+      class="py-3 px-5 mb-4 text-center justify-center bg-red-100 text-red-900 text-sm rounded-md border border-red-200 flex items-center"
+      role="alert">
+      <div class="w-4 mr-2">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01" />
+        </svg>
+      </div>
+      <span> <strong>
+          <%= errorMessage %>
+        </strong></span>
+
+    </div>
+    <% } %>
+
+      <!-- Success Message -->
+      <% if (successMessage.length> 0) { %>
+        <div id="flash-message"
+          class="py-3 px-5 mb-4  text-center justify-center bg-green-100 text-green-900 text-sm rounded-md border border-green-200 flex items-center"
+          role="alert">
+          <div class="w-4 mr-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+            </svg>
+          </div>
+          <span><strong>
+              <%= successMessage %>
+            </strong> </span>
+        </div>
+        <% } %>
+
+
+          <script>
+            setTimeout(function () {
+              const flashMessage = document.getElementById('flash-message');
+              if (flashMessage) {
+                flashMessage.style.transition = 'opacity 0.5s ease-out';
+                flashMessage.style.opacity = '0';
+                setTimeout(() => flashMessage.remove(), 500); // Remove from DOM after fade out
+              }
+            }, 3000); // 6 seconds
+          </script>
+
+          <!-- Container -->
+          <!-- component -->
+          <form action="/users/login" method="POST" class="space-y-6">
+            <div class="min-h-screen bg-gray-300 flex flex-col justify-center sm:py-12">
+              <div class="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
+                <h1 class="font-bold text-center text-2xl mb-5">Shoe Store</h1>
+                <div class="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
+                  <div class="px-5 py-7">
+                    <label class="font-semibold text-sm text-gray-600 pb-1 block">E-mail</label>
+                    <input type="text" type="email" name="email" id="email"
+                      class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
+                    <label class="font-semibold text-sm text-gray-600 pb-1 block">Password</label>
+                    <input type="text" type="password" name="password" id="password"
+                      class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
+                    <button type="submit"
+                      class="transition duration-200 bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">
+                      <span class="inline-block mr-2">Login</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-4 h-4 inline-block">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </button>
+                  </div>
+          </form>
+          <div class="py-5">
+            <div class="grid grid-cols-2 gap-1">
+              <div class="text-center sm:text-left whitespace-nowrap">
+                <button
+                  class="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    class="w-4 h-4 inline-block align-text-top">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                  </svg>
+                  <span class="inline-block ml-1">Forgot Password</span>
+                </button>
+              </div>
+              <div class="text-center sm:text-right  whitespace-nowrap">
+                <a
+                href="/users/register"
+                  class="duration-200 mx-8 px-8 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    class="w-4 h-4 inline-block align-text-bottom	">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                  <span class="inline-block ml-1">Register</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="py-5">
+            <div class="grid grid-cols-2 gap-1">
+              <div class="text-center sm:text-left whitespace-nowrap">
+                <a href="/"
+                  class="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-200 focus:outline-none focus:bg-gray-300 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    class="w-4 h-4 inline-block align-text-top">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                  <span class="inline-block ml-1">Back to Homepage</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          </div>
+          </div>
+
+
+</body>
+
+</html>

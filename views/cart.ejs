@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+  <nav class="bg-white shadow">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <div class="text-xl font-bold text-gray-800">
+          <a href="#">Men's Shoes</a>
+        </div>
+        <div class="hidden md:flex">
+          <ul class="flex space-x-6">
+            <li><a href="/" class="text-gray-600 hover:text-gray-900">Home</a></li>
+            <li><a href="/shop" class="text-gray-600 hover:text-gray-900">Shop</a></li>
+            <li><a href="/cart" class="text-gray-600 hover:text-gray-800">Cart</a></li>
+            <li><a href="/admin" class="text-gray-600 hover:text-gray-800">Admin</a></li>
+            <li><a href="/users/logout" class="text-red-600 hover:text-gray-900">Logout</a></li>
+          </ul>
+        </div>
+        <div class="md:hidden">
+          <button id="menu-btn" class="text-gray-800 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Cart Page Container -->
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl font-semibold text-gray-800 mb-6">Shopping Cart</h1>
+
+    <!-- Cart Items Section -->
+    <div class="flex flex-col lg:flex-row gap-8">
+
+      <!-- Product Items -->
+      <div class="w-full lg:w-2/3 space-y-6">
+        <% let totalAmount = 0; %>
+        <% cartItems.forEach(item => { %>
+          <div class="flex bg-white rounded-lg shadow-md p-4 items-center space-x-4">
+            <!-- Product Image -->
+            <div class="w-24 h-24">
+              <img src="data:image/jpeg;base64,<%= item.image.toString('base64') %>" alt="<%= item.name %>"
+                class="w-full h-full object-cover rounded-lg">
+            </div>
+            <!-- Product Details -->
+            <div class="flex-1">
+              <h2 class="text-lg font-semibold text-gray-800">
+                <%= item.title %>
+              </h2>
+              <p class="text-gray-600">Price: ₹<%= item.price %></p>
+              
+              <!-- Size and Quantity Selection in One Row -->
+              <div class="mt-2 flex items-center space-x-4 w-1/4">
+                <div class="flex-1">
+                  <label for="size" class="block text-gray-600">Size:</label>
+                  <select name="size" id="size" class="border border-gray-300 rounded p-1 w-full">
+                    <% item.sizes.forEach(size => { %> <!-- Assuming item.sizes is an array of available sizes -->
+                      <option value="<%= size %>"><%= size %></option>
+                    <% }); %>
+                  </select>
+                </div>
+                
+                <div class="flex-1 w-1/4">
+                  <label for="quantity" class="block text-gray-600">Quantity:</label>
+                  <input type="number" name="quantity" id="quantity" value="1" min="1" class="border border-gray-300 rounded p-1 w-full" />
+                </div>
+              </div>
+            </div>
+            <!-- Product Total Price -->
+            <div class="text-lg font-semibold text-gray-800">
+              ₹<%= item.price * 1 %>
+            </div>
+            <!-- Remove Item Button -->
+            <div>
+              <a href="/cart/remove/<%= item.id %>" class="text-red-600 hover:text-red-800">Remove</a>
+            </div>
+          </div>
+          <% totalAmount += item.price; %> <!-- Accumulate total amount -->
+        <% }); %>
+      </div>
+
+      <!-- Total Bill Section -->
+      <div class="w-full lg:w-1/3">
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-2xl font-semibold text-gray-800 mb-4">Total</h2>
+          <div class="space-y-2">
+
+            <!-- Shipping -->
+            <div class="flex justify-between text-gray-600">
+              <p>Shipping</p>
+              <p>₹300</p>
+            </div>
+            <!-- Tax -->
+            <div class="flex justify-between text-gray-600">
+              <p>Tax</p>
+              <p>₹<%= (totalAmount * 0.10).toFixed(2) %></p> <!-- Assuming a 10% tax -->
+            </div>
+            <hr class="my-2">
+            <!-- Total Amount -->
+            <div class="flex justify-between text-lg font-semibold text-gray-800">
+              <p>Total</p>
+              <p>₹<%= totalAmount ? (totalAmount + 300 + (totalAmount * 0.10)).toFixed(2) : "NaN" %></p> <!-- Total with shipping and tax -->
+            </div>
+          </div>
+          <!-- Checkout Button -->
+          <div class="mt-6">
+            <a href="/checkout"
+              class="block w-full text-center py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">
+              Proceed to Checkout
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-900">
+
+  
+    <!-- Error Message -->
+    <% if (errorMessage.length> 0) { %>
+
+      <div id="flash-message"
+          class="py-3 px-5 mb-4 text-center justify-center bg-red-100 text-red-900 text-sm rounded-md border border-red-200 flex items-center"
+          role="alert">
+          <div class="w-4 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01" />
+              </svg>
+          </div>
+          <span> <strong>
+                  <%= errorMessage %>
+              </strong></span>
+
+      </div>
+      <% } %>
+
+          <!-- Success Message -->
+          <% if (successMessage.length> 0) { %>
+              <div id="flash-message"
+                  class="py-3 px-5 mb-4  text-center justify-center bg-green-100 text-green-900 text-sm rounded-md border border-green-200 flex items-center"
+                  role="alert">
+                  <div class="w-4 mr-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                      </svg>
+                  </div>
+                  <span><strong>
+                          <%= successMessage %>
+                      </strong> </span>
+              </div>
+              <% } %>
+
+
+              <script>
+                  setTimeout(function () {
+                      const flashMessage = document.getElementById('flash-message');
+                      if (flashMessage) {
+                          flashMessage.style.transition = 'opacity 0.5s ease-out';
+                          flashMessage.style.opacity = '0';
+                          setTimeout(() => flashMessage.remove(), 500); 
+                      }
+                  }, 3000); 
+              </script>
+
+  <!-- Container -->
+  <div class="min-h-screen flex flex-col justify-center items-center bg-slate-300">
+    <div class="w-full max-w-md bg-gray-200 rounded-lg shadow-md p-6">
+      <h2 class="text-2xl font-bold text-center mb-6 text-black">Register</h2>
+      
+      <!-- Form -->
+      <form action="/users/register" method="POST" class="space-y-6">
+        <!-- Name -->
+        <div>
+          <label for="username" class="block text-sm font-medium text-black">Name</label>
+          <input type="text" name="username" id="username" required 
+            class="mt-1 block w-full px-3 py-2 bg-zinc-200 rounded-md shadow-sm border-solid border-2 border-gray-300 text-black sm:text-sm">
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-black">Email</label>
+          <input type="email" name="email" id="email" required 
+            class="mt-1 block w-full px-3 py-2 bg-zinc-200 rounded-md shadow-sm border-solid border-2 border-gray-300 text-black sm:text-sm">
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label for="password" class="block text-sm font-medium text-black">Password</label>
+          <input type="password" name="password" id="password" required 
+          class="mt-1 block w-full px-3 py-2 bg-zinc-200 rounded-md shadow-sm border-solid border-2 border-gray-300 text-black sm:text-sm">
+
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+          <button type="submit" 
+            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Register
+          </button>
+        </div>
+      </form>
+
+      <!-- Link to Login -->
+      <p class="text-center text-slate-600 mt-4">
+        Already have an account? 
+        <a href="/users/login" class="text-indigo-500 hover:text-indigo-200">Login</a>
+      </p>
+    </div>
+    <div class="py-5">
+      <div class="grid grid-cols-2 gap-1">
+        <div class="text-center sm:text-left whitespace-nowrap">
+          <a href="/"
+            class="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-200 focus:outline-none focus:bg-gray-300 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              class="w-4 h-4 inline-block align-text-top">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span class="inline-block ml-1">Back to Homepage</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>
