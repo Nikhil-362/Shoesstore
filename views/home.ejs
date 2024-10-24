@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shoe Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
 
     <script>
         // Set a timeout to hide the flash message after 4 seconds
@@ -154,7 +155,14 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 lg:grid-cols-4">
                             <% shoes.forEach(shoe=> { %>
                                 <div class="bg-[<%=shoe.bgColor %>] shadow-md rounded-lg overflow-hidden p-3">
-                                    <a href="/users/login">
+                                    
+                                    <% if (user) { %>
+                                        <a href="/shop">
+                                        <% } else { %>
+                                            <a href="/users/login">
+                                            <% } %>
+
+                                
                                         <img src="data:image/jpeg;base64,<%= shoe.image.toString('base64') %>"
                                             alt="<%= shoe.title %>" class="w-full h-48 object-cover">
                                         <div class="p-4">

@@ -16,8 +16,7 @@ router.get("/", async (req, res) => {
   ];
 
   const shoes = await productsModel.find().limit(6);
-
-  res.render("home", { shoes, user: req.session.findUser, images });
+  res.render("home", { shoes, user: req.cookies.token, images});
   // res.render("home", { products, user: req.session.findUser });
 });
 

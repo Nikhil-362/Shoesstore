@@ -13,19 +13,22 @@ const userModel = mongoose.Schema({
 
   password: {
     type: String,
-    required: true,
+  },
+  googleId: {
+    type: String,
+    unique: true,
   },
 
+  orders: {
+    type: Array,
+    default: [],
+  },
   carts: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "products",
     },
   ],
-  orders: {
-    type: Array,
-    default: [],
-  },
 });
 
 module.exports = mongoose.model("users", userModel);
