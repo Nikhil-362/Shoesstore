@@ -86,3 +86,39 @@ module.exports.logout = async (req, res) => {
   req.flash("success", "logout successfully")
   res.redirect("/")
 };
+
+
+module.exports.guest = async (req, res) => {
+
+  const email = process.env.GUEST_CRED_EMAIL;
+  const password = process.env.GUEST_CRED_PASSWORD;
+
+  try {
+    const findUser = await userModel.findOne({ email });
+
+
+    // Compare hashed password
+    bcrypt.compare(password, findUser.password, (err, result) => {
+      if (err) {
+        console.error(err);
+        req.flash("error", "Something went wrong, please try again.");
+        return res.redirect("/users/login");
+      }
+
+      if (result) {
+        const token = generateToken(findUser);
+        res.cookie("token", token, { httpOnly: true });
+        req.flash("success", "You are now logged in.");
+        req.session.findUser = findUser;
+        return res.redirect("/shop");
+      } else {
+        req.flash("error", "Invalid email or password.");
+        return res.redirect("/users/login");
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    req.flash("error", "An error occurred during login. Please try again.");
+    res.redirect("/users/login");
+  }
+}
