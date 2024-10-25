@@ -156,12 +156,9 @@
                             <% shoes.forEach(shoe=> { %>
                                 <div class="bg-[<%=shoe.bgColor %>] shadow-md rounded-lg overflow-hidden p-3">
                                     
-                                    <% if (user) { %>
-                                        <a href="/shop">
-                                        <% } else { %>
-                                            <a href="/users/login">
-                                            <% } %>
-
+                                   
+                                                
+                                                <a href="/products/preview/<%= shoe._id%>">
                                 
                                         <img src="data:image/jpeg;base64,<%= shoe.image.toString('base64') %>"
                                             alt="<%= shoe.title %>" class="w-full h-48 object-cover">

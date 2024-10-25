@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+  <nav class="bg-white shadow">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <div class="text-xl font-bold text-gray-800">
+          <a href="#">Men's Shoes</a>
+        </div>
+        <div class="hidden md:flex">
+          <ul class="flex space-x-6">
+            <li><a href="/" class="text-gray-600 hover:text-gray-900">Home</a></li>
+            <li><a href="/shop" class="text-gray-600 hover:text-gray-900">Shop</a></li>
+            <li><a href="/cart" class="text-gray-600 hover:text-gray-800">Cart</a></li>
+            <li><a href="/admin" class="text-gray-600 hover:text-gray-800">Admin</a></li>
+            <li><a href="/users/logout" class="text-red-600 hover:text-gray-900">Logout</a></li>
+          </ul>
+        </div>
+        <div class="md:hidden">
+          <button id="menu-btn" class="text-gray-800 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- component -->
+  <style>
+    @import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
+  </style>
+  <div
+    class="min-w-screen min-h-screen bg-[<%=product.bgColor %>] flex items-center p-5 lg:p-10 overflow-hidden relative">
+    <div class="w-full max-w-6xl rounded bg-white shadow-xl p-10 lg:p-20 mx-auto text-gray-800 relative md:text-left">
+      <div class="md:flex items-center -mx-10">
+
+        <div class="w-full md:w-1/2 px-10 mb-10 md:mb-0">
+          <div class="relative">
+            <!-- <img src="https://pngimg.com/uploads/raincoat/raincoat_PNG53.png" class="w-full relative z-10" alt=""> -->
+            <img src="data:image/jpeg;base64,<%=product.image.toString('base64') %>" alt="<%= product.title %>"
+              class="w-full relative z-10">
+            <div class="border-4 border-[<%= product.bgColor%>] absolute top-10 bottom-10 left-10 right-10 z-0"></div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 px-10">
+          <div class="mb-10">
+            <h1 class="font-bold uppercase text-2xl mb-5">
+              <%=product.title %>
+            </h1>
+            <p class="text-sm">Lorem ipsum dolor sit, amet consectetur adipisicing, elit. Eos, voluptatum dolorum!
+              Laborum blanditiis consequatur, voluptates, sint enim fugiat saepe, dolor fugit, magnam explicabo eaque
+              quas id quo porro dolorum facilis... <a href="#"
+                class="opacity-50 text-gray-900 hover:opacity-100 inline-block text-xs leading-none border-b border-gray-900">MORE
+                <i class="mdi mdi-arrow-right"></i></a></p>
+          </div>
+          <div>
+            <div class="inline-block align-bottom mr-5">
+              <span class="text-2xl leading-none align-baseline">$</span>
+              <span class="font-bold text-5xl leading-none align-baseline">
+                <%=product.price%>
+              </span>
+              <span class="text-2xl leading-none align-baseline">.99</span>
+            </div>
+            <div class="inline-block align-bottom">
+
+              <button 
+                class="bg-[<%= product.bgColor %>] opacity-100 hover:opacity-80 text-black-900 hover:text-gray-900 rounded-full px-10 py-2 font-semibold"><i
+                  class="mdi mdi-cart -ml-2 mr-2"></i> <a href="/addtocart/<%= product._id %>"> Add to Cart</a></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
