@@ -106,8 +106,13 @@
 
                                         <li><a href="/admin"
                                                 class="text-gray-600 hover:text-gray-800">Admin</a></li>
-                                        <li><a href="/users/logout" class="text-red-600 hover:text-gray-900">Logout</a>
-                                        </li>
+                                                <% if (user) { %>
+                                                    <li><a href="/users/logout" class="text-red-500 hover:text-gray-800">Logout</a>
+                                                    </li>
+                                                    <% } else { %>
+                                                        <li><a href="/users/login"
+                                                                class="text-gray-600 hover:text-gray-800">Login</a></li>
+                                                        <% } %>
                                     </ul>
                                 </div>
                                 <di v class="md:hidden">

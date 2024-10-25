@@ -2,6 +2,9 @@ const ownersModel = require("../model/owner-model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { generateToken } = require("../utils/generateToken");
+const ownerModel = require("../model/owner-model");
+const productsModel = require("../model/products-model");
+
 
 module.exports.ownerRegister = async (req, res) => {
   try {
@@ -85,3 +88,57 @@ module.exports.login = async (req, res) => {
   }
 
 } 
+
+module.exports.admin = async (req, res) => {
+  try {
+    const admin = await ownerModel
+      .findOne({ email: req.userOwner.email })
+      .populate("products");
+
+    if (!admin) {
+      req.flash("error", "Admin not found.");
+      return res.redirect("/login");
+    }
+
+    res.render("adminPages/createProd", {
+      products: admin.products,
+      user: req.session.findUser,
+    });
+  } catch (error) {
+    console.error("Error fetching products for admin:", error);
+    req.flash("error", "An error occurred while fetching products.");
+    res.status(500).redirect("/admin");
+  }
+}
+
+module.exports.editId = async (req, res) => {
+  const product = await productsModel.findOne({ _id: req.params.id });
+  console.log(product);
+  res.render("adminPages/edit", { product });
+}
+
+
+module.exports.deleteId =async (req, res) => {
+  try {
+    const productId = req.params.id;
+    await productsModel.findByIdAndDelete(productId);
+
+    const admin = await ownerModel.findOneAndUpdate(
+      { email: req.user.email },
+      { $pull: { products: req.params.id } },
+      { new: true } // Returns the updated document
+    );
+
+    // console.log(req.user.email);
+    // console.log(admin);
+
+    req.flash("success", "Product deleted successfully.");
+    res.redirect("/admin");
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    req.flash("error", "An error occurred while deleting the product.");
+    res.redirect("/admin");
+  }
+}
+// module.exports
+// module.exports

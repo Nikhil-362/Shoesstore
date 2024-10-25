@@ -33,9 +33,6 @@ module.exports.create = async (req, res) => {
   }
 };
 
-
-
-
 module.exports.update = async (req, res) => {
   try {
     const { title, price, bgColor, sizes } = req.body;
@@ -72,3 +69,8 @@ module.exports.update = async (req, res) => {
     res.redirect("/admin");
   }
 };
+
+module.exports.preview = async (req, res) => {
+  const product = await productsModel.findOne({ _id: req.params.id})
+  res.render("userPages/productPage", {product});
+}

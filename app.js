@@ -111,6 +111,9 @@ app.use((req, res, next) => {
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
+
+console.log(__dirname);
+
 app.set("view engine", "ejs");
 
 app.use(logger("dev"));
