@@ -7,6 +7,7 @@
   <title>Cart</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
 </head>
 
 <body class="bg-gray-100">
@@ -14,7 +15,7 @@
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center py-4">
         <div class="text-xl font-bold text-gray-800">
-          <a href="#">Men's Shoes</a>
+          <a href="#">Shoe's Store</a>
         </div>
         <div class="hidden md:flex">
           <ul class="flex space-x-6">
@@ -22,7 +23,7 @@
             <li><a href="/shop" class="text-gray-600 hover:text-gray-900">Shop</a></li>
             <li><a href="/cart" class="text-gray-600 hover:text-gray-800">Cart</a></li>
             <li><a href="/admin" class="text-gray-600 hover:text-gray-800">Admin</a></li>
-            <li><a href="/users/logout" class="text-red-600 hover:text-gray-900">Logout</a></li>
+            <li><a href="/users/login" class="text-gray-600 hover:text-gray-900">Login</a></li>
           </ul>
         </div>
         <div class="md:hidden">
@@ -36,6 +37,20 @@
       </div>
     </div>
   </nav>
+  <div id="mobile-menu" class="hidden md:hidden bg-white shadow">
+    <ul class="flex flex-col space-y-2 p-4">
+      <li><a href="/" class="text-gray-600 hover:text-gray-900">Home</a></li>
+      <li><a href="/shop" class="text-gray-600 hover:text-gray-900">Shop</a></li>
+      <li><a href="/cart" class="text-gray-600 hover:text-gray-800">Cart</a></li>
+      
+      <li><a href="/products/admin" class="text-gray-600 hover:text-gray-900">Admin</a></li>
+      <li><a href="/404" class="text-gray-600 hover:text-gray-900">Contact</a></li>
+      <li><a href="/users/login" class="text-gray-600 hover:text-gray-900">Login</a></li>
+      
+
+    </ul>
+</div>
+  
 
   <!-- component -->
   <style>
@@ -84,6 +99,15 @@
       </div>
     </div>
   </div>
+  <script>
+    // Toggle mobile menu
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+</script>
 </body>
 
 </html>
