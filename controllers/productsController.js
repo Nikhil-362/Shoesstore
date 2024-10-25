@@ -3,7 +3,7 @@ const productsModel = require("../model/products-model");
 
 module.exports.create = async (req, res) => {
   try {
-    const { title, price, bgColor } = req.body;
+    const { title, price, bgColor, sizes } = req.body;
     const image = req.file ? req.file.buffer : null;
 
     if (!title || !price || !bgColor || !image) {
@@ -16,6 +16,7 @@ module.exports.create = async (req, res) => {
       price,
       bgColor,
       image,
+      sizes,
       admin: req.userOwner._id
     });
 
@@ -40,7 +41,8 @@ module.exports.update = async (req, res) => {
     const { title, price, bgColor, sizes } = req.body;
     const image = req.file ? req.file.buffer : null;
 
-    const divide = sizes.split(",");
+    const divide = sizes.split(',').map(num => num.trim());
+    
     // const removeSpace = sizes.replaceAll(" ","");
 
     const updatedProduct = await productsModel.findOneAndUpdate(
@@ -55,7 +57,7 @@ module.exports.update = async (req, res) => {
       { new: true }
     );
 
-    console.log(updateProduct);
+    console.log(updatedProduct, "!!!!!!!!!!!!!");
 
     if (!updatedProduct) {
       req.flash("error", "Failed to update the product. Please try again later.");
@@ -63,7 +65,7 @@ module.exports.update = async (req, res) => {
     }
 
     req.flash("success", "Product updated successfully.");
-    res.redirect("/admin");
+    res.redirect("/shop");
   } catch (error) {
     console.error(error);
     req.flash("error", "An error occurred while updating the product.");
