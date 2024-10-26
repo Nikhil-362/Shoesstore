@@ -7,7 +7,7 @@
   <title>Cart</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
 </head>
 
 <body class="bg-gray-100">
@@ -42,15 +42,15 @@
       <li><a href="/" class="text-gray-600 hover:text-gray-900">Home</a></li>
       <li><a href="/shop" class="text-gray-600 hover:text-gray-900">Shop</a></li>
       <li><a href="/cart" class="text-gray-600 hover:text-gray-800">Cart</a></li>
-      
+
       <li><a href="/products/admin" class="text-gray-600 hover:text-gray-900">Admin</a></li>
       <li><a href="/404" class="text-gray-600 hover:text-gray-900">Contact</a></li>
       <li><a href="/users/login" class="text-gray-600 hover:text-gray-900">Login</a></li>
-      
+
 
     </ul>
-</div>
-  
+  </div>
+
 
   <!-- component -->
   <style>
@@ -81,19 +81,47 @@
                 <i class="mdi mdi-arrow-right"></i></a></p>
           </div>
           <div>
-            <div class="inline-block align-bottom mr-5">
-              <span class="text-2xl leading-none align-baseline">$</span>
-              <span class="font-bold text-5xl leading-none align-baseline">
-                <%=product.price%>
-              </span>
-              <span class="text-2xl leading-none align-baseline">.99</span>
-            </div>
-            <div class="inline-block align-bottom">
 
-              <button 
-                class="bg-[<%= product.bgColor %>] opacity-100 hover:opacity-80 text-black-900 hover:text-gray-900 rounded-full px-10 py-2 font-semibold"><i
-                  class="mdi mdi-cart -ml-2 mr-2"></i> <a href="/addtocart/<%= product._id %>"> Add to Cart</a></button>
+
+            <div>
+              <ul class="flex flex-row justify-center items-center">
+                <% product.sizes.forEach((size) => { %>
+                  <li class="mr-4 last:mr-0">
+                    <label class="block p-1  border-gray-200  rounded-full transition ease-in duration-300 cursor-pointer">
+                      <input 
+                        type="radio" 
+                        class="hidden peer" 
+                        name="size"   
+                        value="<%= size %>"
+                      />
+                      <span class=" w-12 h-12 flex items-center justify-center bg-white border-2 border-gray-200 rounded-full text-black font-semibold peer-checked:bg-[<%=product.bgColor%>] peer-checked:text-black  transition ease-in duration-300">
+              <%= size %>
+                      </span>
+                    </label>
+                  </li>
+                <% }) %>
+              </ul>
             </div>
+            
+
+           
+            <div class="flex text-center justify-items-end my-8">
+              <div class="inline-block align-bottom mr-5">
+                <span class="text-2xl leading-none align-baseline">$</span>
+                <span class="font-bold text-3xl leading-none align-baseline">
+                  <%=product.price%>
+                </span>
+                <span class="text-2xl leading-none align-baseline">.99</span>
+              </div>
+              <div class="inline-block align-bottom">
+
+                <button
+                  class="bg-[<%= product.bgColor %>] opacity-100 hover:opacity-80 text-black-900 hover:text-gray-900 rounded-full px-10 py-2 font-semibold"><i
+                    class="mdi mdi-cart -ml-2 mr-2"></i> <a href="/addtocart/<%= product._id %>"> Add to
+                    Cart</a></button>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -105,9 +133,9 @@
     const mobileMenu = document.getElementById('mobile-menu');
 
     menuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('hidden');
     });
-</script>
+  </script>
 </body>
 
 </html>

@@ -44,7 +44,7 @@ module.exports.shop = async (req, res) => {
       user.carts.push(req.params.id);
       await user.save();
       req.flash("success", "Added to Cart");
-      res.redirect("/shop");
+      res.redirect("/cart");
     } catch (error) {
       req.flash("error", error);
       res.redirect("/shop");
